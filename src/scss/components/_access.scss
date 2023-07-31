@@ -1,0 +1,39 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.access {
+  @include m.component-default();
+  padding: 0;
+
+  &.focus-visible {
+    box-shadow: v.$focus-box-shadow-color;
+
+    &__heading {
+      box-shadow: none;
+    }
+  }
+
+  @include m.respond-to("ipad") {
+    padding: 0;
+  }
+
+  &__wrapper {
+    width: 100%;
+    padding: 0;
+    max-width: none;
+  }
+
+  &__panel {
+    margin: 0;
+  }
+
+  &__map {
+    width: 100%;
+    height: f.rem(352px);
+
+    @include m.respond-to("ipad") {
+      height: f.rem(256px);
+    }
+  }
+}

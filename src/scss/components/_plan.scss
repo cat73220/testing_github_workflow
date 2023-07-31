@@ -1,0 +1,296 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.plan {
+  @include m.component-default();
+
+  &__button {
+    font-size: f.rem(14px);
+    padding: f.rem(8px) f.rem(16px);
+
+    &--start-trial, &--inquiry {
+      margin-top: auto;
+    }
+  }
+
+  &__category-name {
+    display: none;
+    font-weight: 700;
+
+    &--header {
+      display: block;
+    }
+
+    @include m.respond-to("desktop-wsvga") {
+      display: block;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+
+    @include m.respond-to("desktop-wsvga") {
+      flex-flow: column nowrap;
+    }
+  }
+
+  &__image {
+    $this: &;
+
+    &--logo {
+      @include m.image-size(map-get(v.$livemasq-logo-size, "desktop"));
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    background: v.$support-item-background-color;
+    width: 25%;
+
+    @include m.respond-to("desktop-wsvga") {
+      width: 100%;
+      margin-bottom: f.rem(56px);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &--header {
+        display: none;
+      }
+    }
+  }
+
+  &__description {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: map-get(v.$plan-name-font-color, "default");
+    font-size: f.rem(16px);
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__note {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    font-size: f.rem(12px);
+    width: 100%;
+    padding: 0 f.rem(24px);
+    color: v.$plan-note-font-color;
+    font-weight: 700;
+    height: f.rem(40px);
+    line-height: 1.2;
+    margin-top: f.rem(8px);
+  }
+
+  &__pane {
+    width: 100%;
+
+    &--side {
+      display: flex;
+      flex-flow: column nowrap;
+      font-size: f.rem(12px);
+      align-items: flex-start;
+      margin-top: f.rem(24px);
+
+      @include m.respond-to("desktop-wsvga") {
+        margin-top: f.rem(16px);
+      }
+    }
+  }
+
+  &__panel {
+    @include m.background-border-lines(20%, -10deg, 130%, 30deg);
+    flex-flow: column nowrap;
+  }
+
+  &__plan-list-note {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+
+    &::before {
+      content: "※";
+      margin-right: 8px;
+    }
+  }
+
+  &__price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: f.rem(14px);
+    color: f.map-deep-get(v.$price-font-color, "desktop", "default");
+    font-weight: 700;
+    white-space: nowrap;
+
+    &--yearly {
+      font-size: f.rem(12px);
+      font-weight: 400;
+    }
+  }
+
+  &__price-value {
+    font-size: f.rem(18px);
+    margin-left: f.rem(8px);
+    white-space: nowrap;
+
+    &--yearly {
+      font-size: f.rem(12px);
+    }
+  }
+
+  &__supported-icon {
+    position: relative;
+    color: v.$supported-item-font-color;
+    width: f.rem(24px);
+    height: f.rem(24px);
+    border-radius: 100%;
+    overflow: hidden;
+    border-style: solid;
+    border-color: v.$supported-item-bullet-symbol-color;
+    border-width: 2px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 32%;
+      top: 14%;
+      border-style: solid;
+      border-color: v.$supported-item-bullet-symbol-color;
+      border-bottom: f.rem(8px);
+      border-right: f.rem(8px);
+      width: 38%;
+      height: 60%;
+      transform: rotate(-135deg);
+    }
+  }
+
+  &__support-item {
+    $this: &;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: f.rem(14px);
+    height: f.rem(64px);
+    max-height: f.rem(64px);
+    border-style: solid;
+    border-color: map-get(v.$plan-border-color, "default");
+    border-width: 0 f.rem(1px) f.rem(1px) 0;
+    width: 100%;
+    padding: f.rem(8px) f.rem(16px);
+
+    @include m.respond-to("desktop-wsvga") {
+      justify-content: space-between;
+      border-width: 0 f.rem(1px) f.rem(1px) f.rem(1px);
+    }
+
+    &--header {
+      justify-content: flex-start;
+      border-width: 0 f.rem(1px) f.rem(1px) f.rem(1px);
+    }
+
+    &--category {
+      justify-content: flex-start;
+      border-style: solid;
+      border-color: map-get(v.$plan-border-color, "default");
+      border-width: 0 0 f.rem(1px) 0;
+      padding-bottom: 0;
+      height: f.rem(40px);
+    }
+  }
+
+  &__support-item-key {
+    display: none;
+    line-height: 1.2;
+
+    @include m.respond-to("desktop-wsvga") {
+      display: inline-block;
+    }
+  }
+
+  &__support-item-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-weight: 700;
+    width: 100%;
+    height: 100%;
+
+    @include m.respond-to("desktop-wsvga") {
+      min-width: f.rem(88px);
+      max-width: f.rem(88px);
+      justify-content: flex-end;
+    }
+  }
+
+  &__support-list {
+    width: 100%;
+  }
+
+  &__title {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 100%;
+    background: map-get(v.$plan-background-color, "default");
+    font-size: f.rem(22px);
+    height: f.rem(224px);
+    max-height: f.rem(224px);
+    overflow: hidden;
+    border-style: solid;
+    border-color: v.$plan-border-width map-get(v.$plan-border-color, "default");
+    border-width: f.rem(1px) f.rem(1px) f.rem(1px) 0;
+    padding: f.rem(16px) f.rem(8px);
+
+    &--header {
+      border-width: 1px;
+      justify-content: center;
+    }
+
+    @include m.respond-to("desktop-wsvga") {
+      border-width: f.rem(1px);
+      height: f.rem(188px);
+    }
+  }
+
+  &__unsupported-icon {
+    position: relative;
+    color: v.$unsupported-item-font-color;
+    width: f.rem(32px);
+    height: f.rem(32px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 48%;
+      left: 32%;
+      height: 10%;
+      width: 40%;
+      background-color: v.$unsupported-item-bullet-symbol-color;
+    }
+  }
+}

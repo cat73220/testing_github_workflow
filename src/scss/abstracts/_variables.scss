@@ -1,0 +1,366 @@
+@use "functions" as f;
+
+/* Color */
+$white: #fff;
+$gray-900: #f4f4f4;
+$gray-800: #d6d6d6;
+$gray-700: #aab0bc;
+$gray-500: #78808d;
+$gray-300: #353f4d;
+$gray-200: #222;
+$gray-150: #1f1f1f;
+$gray-100: #1a1a1a;
+$black: #000;
+$red-400: #faa293;
+$red-500: #f72d54;
+$blue-200: #bce5ff;
+$blue-500: #007aff;
+$blue-900: #1f2f45;
+
+/* Gradient */
+$left-to-right-red-gradient: linear-gradient(90deg, $red-400, $red-500);
+$right-to-left-red-gradient: linear-gradient(90deg, $red-500, $red-400);
+
+/* Alpha channel */
+$alpha: 0.7;
+
+/* Color map */
+$blue-color-map: (
+  "default": $blue-500
+  , "link": $blue-500
+  , "visited": $blue-500
+  , "focus": rgba($blue-500, $alpha)
+  , "hover": rgba($blue-500, $alpha)
+  , "active": rgba($blue-500, $alpha)
+);
+$dark-blue-to-red-color-map: (
+  "default": $blue-900
+  , "link": $blue-900
+  , "visited": $blue-900
+  , "focus": rgba($red-500, $alpha)
+  , "hover": rgba($red-500, $alpha)
+  , "active": rgba($red-500, $alpha)
+);
+$gray-to-red-color-map: (
+  "default": $gray-200
+  , "link": $gray-200
+  , "visited": $gray-200
+  , "focus": $red-500
+  , "hover": $red-500
+  , "active": $red-500
+);
+$gray-to-white-color-map: (
+  "default": $gray-800
+  , "link": $gray-800
+  , "visited": $gray-800
+  , "focus": $red-500
+  , "hover": $red-500
+  , "active": $red-500
+);
+$light-blue-color-map: (
+  "default": $blue-200
+  , "link": $blue-200
+  , "visited": $blue-200
+  , "focus": rgba($blue-200, $alpha)
+  , "hover": rgba($blue-200, $alpha)
+  , "active": rgba($blue-200, $alpha)
+);
+$red-color-map: (
+  "default": $red-500
+  , "link": $red-500
+  , "visited": $red-500
+  , "focus": rgba($red-500, $alpha)
+  , "hover": rgba($red-500, $alpha)
+  , "active": rgba($red-500, $alpha)
+);
+$red-gradient-color-map: (
+  "default": $left-to-right-red-gradient
+  , "link": $left-to-right-red-gradient
+  , "visited": $left-to-right-red-gradient
+  , "focus": $right-to-left-red-gradient
+  , "hover": $right-to-left-red-gradient
+  , "active": $right-to-left-red-gradient
+);
+$red-to-white-color-map: (
+  "default": $red-500
+  , "link": $red-500
+  , "visited": $red-500
+  , "focus": $white
+  , "hover": $white
+  , "active": $white
+);
+$transparent-color-map: (
+  "default": transparent
+  , "link": transparent
+  , "visited": transparent
+  , "focus": transparent
+  , "hover": transparent
+  , "active": transparent
+);
+$transparent-to-red-color-map: (
+  "default": transparent
+  , "link": transparent
+  , "visited": transparent
+  , "focus": $red-500
+  , "hover": $red-500
+  , "active": $red-500
+);
+$white-to-red-color-map: (
+  "default": $white
+  , "link": $white
+  , "visited": $white
+  , "focus": $red-500
+  , "hover": $red-500
+  , "active": $red-500
+);
+$white-to-white-color-map: (
+  "default": $white
+  , "link": $white
+  , "visited": $white
+  , "focus": $white
+  , "hover": $white
+  , "active": $white
+);
+$white-to-transparent-white-color-map: (
+  "default": $white
+  , "link": $white
+  , "visited": $white
+  , "focus": rgba($white, $alpha)
+  , "hover": rgba($white, $alpha)
+  , "active": rgba($white, $alpha)
+);
+
+/* Transition */
+$transition-duration: 300ms;
+$transition-function: ease-out;
+$hover-transition:
+  background-color $transition-duration $transition-function
+  , background-image 600ms $transition-function
+  , border-color $transition-duration $transition-function
+  , color $transition-duration $transition-function
+  , opacity $transition-duration $transition-function !default;
+
+/* CSS code */
+$plus-code: "\002B";
+$em-dash-code: "\2014";
+
+/* Global */
+$backdrop-color: rgba(0, 0, 0, 0.4) !default;
+$background-border-color:
+  ("upward": $red-400, "downward": $red-500) !default;
+$body-opacity-transition-duration: 300ms !default;
+$border-color: $gray-200 !default;
+$border-width: 1px !default;
+$breakpoints: (
+  "iphone-se": ("width": 320px, "height": 568px),
+  "iphone-8": ("width": 375px, "height": 667px),
+  "iphone-8-plus": ("width": 414px, "height": 736px),
+  "ipad-mini": ("width": 768px, "height": 1024px),
+  "ipad": ("width": 768px, "height": 1024px),
+  "ipad-pro-10.5": ("width": 834px, "height": 1112px),
+  "ipad-pro-12.9": ("width": 1024px, "height": 1366px),
+  "desktop-svga": ("width": 800px, "height": 600px),
+  "desktop-wsvga": ("width": 1024px, "height": 767px),
+  "desktop-sxga": ("width": 1280px, "height": 1024px),
+  "desktop-fhd": ("width": 1920px, "height": 1080px)
+) !default;
+$button-background-color: $red-color-map !default;
+$button-background-image: $left-to-right-red-gradient !default;
+$button-border-color: $transparent-color-map !default;
+$button-border-width: $border-width !default;
+$button-font-color: $white-to-white-color-map !default;
+$button-transition: $hover-transition !default;
+$component-padding-length:
+  ("default": f.rem(32px), "mobile": f.rem(16px)) !default;
+$emphasis-font-color: $red-500 !default;
+$font-color: $gray-200 !default;
+$font-family: "Helvetica Neue", arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", meiryo, sans-serif !default;
+$font-size: 16px !default;
+$gradient-button-transition: opacity 600ms ease-in-out !default;
+$gradient-button-transition-color:
+  ( "before": $right-to-left-red-gradient,
+  "after": $left-to-right-red-gradient
+) !default;
+$heading-border-color: $red-500 !default;
+$line-height: 1.8 !default;
+$link-font-color: $gray-200 !default;
+$link-transition: $hover-transition !default;
+$focus-box-shadow-color:
+  0 0 0 f.rem(2px) rgba($red-500, 1)
+  , 0 0 0 f.rem(3px) rgba($red-400, 0.4) !default;
+$ruby-font-weight: 400 !default;
+$ruby-line-height: 0.4 !default;
+$ruby-text-align: left !default;
+$z-index: (
+  "app-preview-video": 2,
+  "backdrop-color": 90,
+  "background-border-line": -2,
+  "background-square": -1,
+  "background-image": -1,
+  "flow-long-dash-line": 1,
+  "flow-step": 2,
+  "flow-content": 2,
+  "flow-short-dash-line": 3,
+  "gradient-button": 1,
+  "gradient-button-pseudo-element": -1,
+  "header": 100,
+  "scroll-to-top-button": 99,
+) !default;
+
+/* Header */
+$drop-down-menu-button-color: $white-to-white-color-map !default;
+$drop-down-menu-button-border-width: f.rem(3px) !default;
+$drop-down-menu-button-background-color: $transparent-color-map !default;
+$drop-down-menu-button-background-image: none !default;
+$drop-down-menu-link-background-color: $gray-to-red-color-map !default;
+$drop-down-link-border-color: $gray-300 !default;
+$drop-down-menu-link-font-color: $white-to-white-color-map !default;
+$drop-down-menu-item-height: f.rem(64px) !default;
+$drop-down-menu-size: ("width": f.rem(24px), "height": f.rem(18px)) !default;
+$header-background-color: $gray-100 !default;
+$header-breakpoint: "desktop-sxga" !default;
+$header-height: ("desktop": f.rem(80px), "mobile": f.rem(43px)) !default;
+$header-link-font-color: $white-to-red-color-map !default;
+$header-logo-outline-color: $red-500 !default;
+$header-transform-transition:
+  transform 600ms $transition-function !default;
+$livemasq-logo-size:
+  ( "desktop": ("width": f.rem(172px), "height": f.rem(34px))
+  , "mobile" : ("width": f.rem(30px), "height": f.rem(30px))
+) !default;
+$sign-in-button-background-color: $red-to-white-color-map !default;
+$sign-in-button-background-image: none !default;
+$sign-in-button-border-color: $red-to-white-color-map !default;
+$sign-in-button-font-color: $white-to-red-color-map !default;
+$start-button-background-color: $red-to-white-color-map !default;
+$start-button-background-image: none !default;
+$start-button-border-color: $red-to-white-color-map !default;
+$start-button-font-color: $white-to-red-color-map !default;
+
+/* Headline */
+$app-preview-image-size:
+  ("desktop": ("width": f.rem(387px), "height": f.rem(789px))
+  , "mobile": ("width": f.rem(278px), "height": f.rem(554px))
+) !default;
+$app-store-logo-size: ("width": f.rem(146px), "height": f.rem(54px)) !default;
+$headline-emphasis-fallback-font-color: $red-500 !default;
+$headline-emphasis-gradient-font-color: $left-to-right-red-gradient !default;
+$headline-emphasis-offset: f.rem(7px) !default;
+$headline-padding-top:
+  ("desktop": map-get($header-height, "desktop")
+  + map-get($component-padding-length, "default")
+  , "mobile": map-get($header-height, "mobile")
+  + map-get($component-padding-length, "mobile")
+) !default;
+
+/* Service */
+$service-background-color: $gray-900;
+$service-description-font-size: f.rem(18px);
+$service-link-font-color: $blue-color-map;
+
+/* How to use */
+$how-to-use-item-width: f.rem(800px);
+$how-to-use-step-font-size:
+  ("default": f.rem(40px), "ipad": f.rem(36px));
+$how-to-use-step-font-weight: 700;
+$how-to-use-step-fallback-font-color: $red-500;
+$how-to-use-step-gradient-font-color: $left-to-right-red-gradient;
+$how-to-use-title-font-size:
+  ("default": f.rem(34px), "ipad": f.rem(24px));
+$how-to-use-title-font-weight: 700;
+$how-to-use-title-font-color: $gray-200;
+$launch-app-image-size: ("width": f.rem(250px), "height": f.rem(500px));
+$select-faces-to-exclude-image-size: ("width": f.rem(250px), "height": f.rem(500px));
+$start-shooting-image-size: ("width": f.rem(250px), "height": f.rem(500px));
+$background-square-color: ("dark": $red-500, "light": rgba($red-400, 0.35));
+
+/* FAQ */
+$answer-background-color: $gray-900;
+$answer-font-size: f.rem(18px);
+$faq-link-font-color: $blue-color-map;
+$question-font-size: f.rem(18px);
+$question-font-weight: 700;
+
+/* Flow */
+$dash-line-border-width: f.rem(3px);
+$dash-line-left-position: f.rem(40px);
+$dash-line-border-color:
+  ("contract": $red-500, "school": $red-400, "hospital": $gray-100);
+$first-long-dash-line-horizontal-position: f.rem(-62px);
+$flow-item-background-color: $white;
+$flow-item-width: f.rem(550px);
+$flow-step-color: $dash-line-border-color;
+$livemasq-app-image-size:
+  ("default": ("width": f.rem(58px), "height": f.rem(58px))
+  , "ipad": ("width": f.rem(36px), "height": f.rem(36px))
+);
+$long-dash-line-height: f.rem(95px);
+$long-dash-line-width: f.rem(408px);
+$second-long-dash-line-horizontal-position: f.rem(-112px);
+$short-dash-line-height: f.rem(50px);
+$short-dash-line-horizontal-offset: f.rem(-15px);
+
+/* Plan */
+$badge-background-color: $red-500 !default;
+$badge-border-color: $red-500 !default;
+$badge-font-color: $white !default;
+$plan-background-color:
+  ("default": $white
+  , "mobile-default": $white
+  , "demo": $left-to-right-red-gradient
+) !default;
+$plan-badge-font-color: $white !default;
+$plan-badge-height: f.rem(14px) !default;
+$plan-badge-background-color: $red-500 !default;
+$plan-border-color: ("default": $gray-200) !default;
+$plan-border-radius: f.rem(3px) !default;
+$plan-border-width: 1px !default;
+$plan-name-font-color: ("default": $gray-200, "demo": $white) !default;
+$plan-note-font-color: $red-500 !default;
+$price-font-color:
+  ( "desktop": ("default": $gray-200, "trial": $red-500)
+  , "mobile": ("default": $gray-200, "trial": $red-500)
+) !default;
+$support-item-background-color: $white !default;
+$supported-item-bullet-symbol-color: $red-500 !default;
+$supported-item-font-color: $gray-200 !default;
+$unsupported-item-bullet-symbol-color: $gray-700 !default;
+$unsupported-item-font-color: $gray-700 !default;
+
+/* News */
+$news-list-width: f.rem(900px);
+$news-border-color: ("default": $gray-200, "outline": $red-500);
+
+/* Install */
+$install-link-font-color: $blue-color-map;
+$test-flight-app-image-size:
+  ("width": f.rem(86px), "height": f.rem(86px));
+$test-flight-app-preview-image-size:
+  ("width": f.rem(252px), "height": f.rem(328px));
+$test-flight-title-font-size: f.rem(20px);
+
+/* Call to action */
+$call-to-action-background-color: $gray-900 !default;
+$call-to-action-link-font-color: $gray-to-red-color-map !default;
+
+/* About us */
+$about-us-link-border-color: $gray-to-white-color-map !default;
+
+/* Error */
+$error-background-color: $gray-150 !default;
+$error-font-color: $white !default;
+
+/* Footer */
+$footer-background-color: $gray-100 !default;
+$footer-contact-link-background-color: $dark-blue-to-red-color-map !default;
+$footer-contact-link-font-color: $white-to-white-color-map !default;
+$footer-font-color: $white !default;
+$footer-link-font-color: $light-blue-color-map !default;
+$footer-section-title-font-color: $gray-700 !default;
+$footer-service-border-color: $gray-500 !default;
+$footer-site-background-color: $gray-300 !default;
+$footer-site-lead-color: $gray-700 !default;
+$scroll-to-top-button-size: f.rem(47px) !default;
+$scroll-to-top-button-offset: f.rem(74px) !default;
+$scroll-to-top-button-transition:
+  transform $transition-duration $transition-function !default;

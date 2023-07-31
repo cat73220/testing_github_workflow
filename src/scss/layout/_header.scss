@@ -1,0 +1,272 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.header {
+  @include m.layout-default();
+  position: fixed;
+  background-color: v.$header-background-color;
+  z-index: map-get(v.$z-index, "header");
+  height: map-get(v.$header-height, "desktop");
+
+  @include m.respond-to(v.$header-breakpoint) {
+    height: map-get(v.$header-height, "mobile");
+  }
+
+  &--animate-in {
+    transform: translateY(0);
+    transition: v.$header-transform-transition;
+  }
+
+  &--animate-out {
+    transform: translateY(map-get(v.$header-height, "desktop") * -1);
+    transition: v.$header-transform-transition;
+
+    @include m.respond-to(v.$header-breakpoint) {
+      transform: translateY(map-get(v.$header-height, "mobile") * -1);
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: f.rem(4px) f.rem(32px);
+
+    @include m.respond-to(v.$header-breakpoint) {
+      position: relative;
+      padding: f.rem(4px) f.rem(24px);
+
+      @media (orientation: landscape) {
+        padding: f.rem(4px)  f.rem(40px);
+      }
+    }
+  }
+
+  &__navigation {
+    height: 100%;
+
+    @include m.respond-to(v.$header-breakpoint) {
+      display: none;
+
+      &--drop-down-menu {
+        position: absolute;
+        top: map-get(v.$header-height, "mobile");
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: fit-content;
+        height: -moz-max-content;
+      }
+    }
+  }
+
+  &__navigation-list {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    @include m.respond-to(v.$header-breakpoint) {
+      display: flex;
+      flex-flow: column nowrap;
+      width: 100%;
+    }
+  }
+
+  &__navigation-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    &--install {
+      display: none;
+    }
+
+    @include m.respond-to(v.$header-breakpoint) {
+      width: 100%;
+      height: v.$drop-down-menu-item-height;
+      border-style: solid;
+      border-width: v.$border-width 0;
+      border-color: v.$drop-down-link-border-color;
+
+      &:not(:first-child) {
+        border-width: 0 0 v.$border-width;
+      }
+
+      &--flow {
+        display: none;
+      }
+    }
+  }
+
+  &__button {
+    $this: &;
+    padding: f.rem(8px) f.rem(32px);
+    font-size: f.rem(14px);
+    margin-left: f.rem(8px);
+    white-space: nowrap;
+
+    &--sign-in {
+      @include
+        m.pseudo-class(
+          v.$sign-in-button-font-color
+          , v.$sign-in-button-background-color
+          , v.$sign-in-button-border-color
+        );
+      color: map-get(v.$sign-in-button-font-color, "default");
+      background: map-get(v.$sign-in-button-background-color, "default");
+      background-image: v.$sign-in-button-background-image;
+
+      @include m.respond-to(v.$header-breakpoint) {
+        padding: 0 f.rem(15px);
+      }
+    }
+
+    &--start {
+      @include
+        m.pseudo-class(
+          v.$start-button-font-color
+          , v.$start-button-background-color
+          , v.$start-button-border-color
+        );
+      color: map-get(v.$start-button-font-color, "default");
+      background: map-get(v.$start-button-background-color, "default");
+      background-image: v.$start-button-background-image;
+
+      @include m.respond-to(v.$header-breakpoint) {
+        display: none;
+      }
+    }
+
+    &--drop-down-menu {
+      display: none;
+
+      @include m.respond-to(v.$header-breakpoint) {
+        @include
+          m.pseudo-class(
+            none
+            , v.$drop-down-menu-button-background-color
+            , v.$drop-down-menu-button-color
+          );
+        display: flex;
+        position: relative;
+        background: transparent;
+        width: map-get(v.$drop-down-menu-size, "width");
+        height: map-get(v.$drop-down-menu-size, "height");
+        border-radius: 0;
+        border-width: v.$drop-down-menu-button-border-width 0;
+        border-color: map-get(v.$drop-down-menu-button-color, "default");
+        padding: 0;
+        margin-left: f.rem(24px);
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 100%;
+          top: 50%;
+          border-style: solid;
+          border-width: v.$drop-down-menu-button-border-width 0 0;
+          border-color: map-get(v.$drop-down-menu-button-color, "default");
+          transform: translateY(-50%);
+          transition: transform 300ms ease-out;
+        }
+
+        &#{$this}--close {
+          border-color: transparent;
+
+          &::before, &::after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            top: 50%;
+            border-width: 0;
+            height: v.$drop-down-menu-button-border-width;
+            background-color: map-get(v.$drop-down-menu-button-color, "default");
+            transform: skewY(-45deg);
+          }
+
+          &::after {
+            transform: skewY(45deg);
+          }
+        }
+      }
+    }
+  }
+
+  &__link {
+    $this: &;
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    &--logo {
+      margin-right: auto;
+    }
+
+    &--navigation {
+      @include m.pseudo-class(v.$header-link-font-color, none, none);
+      color: map-get(v.$header-link-font-color, "default");
+      padding: 0 f.rem(18px);
+
+      @include m.respond-to(v.$header-breakpoint) {
+        @include
+          m.pseudo-class(v.$drop-down-menu-link-font-color
+          , v.$drop-down-menu-link-background-color
+          , none);
+        color: map-get(v.$drop-down-menu-link-font-color, "default");
+        width: 100%;
+        height: v.$drop-down-menu-item-height;
+        justify-content: center;
+      }
+    }
+  }
+
+  &__picture {
+    $this: &;
+
+    &--logo {
+      width: f.map-deep-get(v.$livemasq-logo-size, "desktop", "width");
+      @include m.respond-to(v.$header-breakpoint) {
+        display: none;
+      }
+
+      &#{$this}--mobile {
+        display: none;
+
+        @include m.respond-to(v.$header-breakpoint) {
+          display: flex;
+          width: f.map-deep-get(v.$livemasq-logo-size, "mobile", "width");
+        }
+      }
+    }
+  }
+
+  &__image {
+    $this: &;
+
+    &--logo {
+      @include m.image-size(map-get(v.$livemasq-logo-size, "desktop"));
+      padding: 0 f.rem(8px);
+
+      @include m.respond-to(v.$header-breakpoint) {
+        display: none;
+      }
+
+      &#{$this}--mobile {
+        display: none;
+        padding: 0;
+
+        @include m.respond-to(v.$header-breakpoint) {
+          @include m.image-size(map-get(v.$livemasq-logo-size, "mobile"));
+          display: flex;
+        }
+      }
+    }
+  }
+}

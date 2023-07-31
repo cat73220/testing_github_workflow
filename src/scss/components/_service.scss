@@ -1,0 +1,68 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.service {
+  @include m.component-default();
+  background: v.$service-background-color;
+
+  &__description {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    font-size: v.$service-description-font-size;
+
+    @include m.respond-to("ipad") {
+      justify-content: flex-start;
+    }
+  }
+
+  &__note {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+
+  &__link-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: f.rem(496px);
+    margin-top: f.rem(24px);
+
+    @include m.respond-to("ipad") {
+      justify-content: flex-start;
+      max-width: f.rem(320px);
+
+      &:not(:first-of-type) {
+        margin-top: f.rem(16px);
+      }
+    }
+  }
+
+  &__link-item {
+    white-space: nowrap;
+
+    &::before {
+      content: "・";
+      margin: 0;
+    }
+
+    @include m.respond-to("ipad") {
+      width: 100%;
+
+      &::before {
+        margin-left: f.rem(16px);
+      }
+    }
+  }
+
+  &__link {
+    @include m.pseudo-class(v.$service-link-font-color, null, null);
+    color: map-get(v.$service-link-font-color, "default");
+
+    @include m.respond-to("iphone-8") {
+      font-size: f.rem(14px);
+    }
+  }
+}

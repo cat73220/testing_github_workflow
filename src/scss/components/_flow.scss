@@ -1,0 +1,143 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+@mixin dash-lines() {
+
+  &:nth-child(1)::after, &:nth-child(3)::after, &:nth-child(5)::after {
+    position: absolute;
+    content: "";
+    border-style: dashed;
+    border-width: 0 v.$dash-line-border-width 0 0;
+    left: v.$dash-line-left-position;
+    bottom: v.$short-dash-line-horizontal-offset;
+    height: v.$short-dash-line-height;
+    z-index: map-get(v.$z-index, "flow-short-dash-line");
+  }
+
+  &:nth-child(2)::before {
+    position: absolute;
+    content: "";
+    border-style: dashed;
+    border-width: 0 0 v.$dash-line-border-width v.$dash-line-border-width;
+    left: v.$dash-line-left-position;
+    bottom: v.$first-long-dash-line-horizontal-position;
+    width: v.$long-dash-line-width;
+    height: v.$long-dash-line-height;
+    z-index: map-get(v.$z-index, "flow-long-dash-line");
+  }
+
+  &:nth-child(5)::before {
+    position: absolute;
+    content: "";
+    border-style: dashed;
+    border-width: v.$dash-line-border-width 0 0 v.$dash-line-border-width;
+    left: v.$dash-line-left-position;
+    top: v.$second-long-dash-line-horizontal-position;
+    width: v.$long-dash-line-width;
+    height: v.$long-dash-line-height;
+    z-index: map-get(v.$z-index, "flow-long-dash-line");
+  }
+
+  &--contract::before, &--contract::after {
+    border-color: map-get(v.$dash-line-border-color, "contract");
+  }
+
+  &--hospital::before, &--hospital::after {
+    border-color: map-get(v.$dash-line-border-color, "hospital");
+  }
+
+  &--school::before, &--school::after {
+    border-color: map-get(v.$dash-line-border-color, "school");
+  }
+}
+
+.flow {
+  @include m.component-default();
+
+  &__list {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+  }
+
+  &__item {
+    @include dash-lines();
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    width: v.$flow-item-width;
+    height: f.rem(112px);
+    margin-bottom: f.rem(30px);
+
+    &--school {
+      align-self: flex-end;
+    }
+  }
+
+  &__step {
+    font-size: f.rem(60px);
+    font-weight: 700;
+    background-color: v.$flow-item-background-color;
+    line-height: 1em;
+    height: 1em;
+    padding-left: f.rem(8px);
+    z-index: map-get(v.$z-index, "flow-step");
+
+    &--contract {
+      color: map-get(v.$flow-step-color, "contract");
+    }
+
+    &--school {
+      color: map-get(v.$flow-step-color, "school");
+    }
+
+    &--hospital {
+      color: map-get(v.$flow-step-color, "hospital");
+    }
+  }
+
+  &__content {
+    background-color: v.$flow-item-background-color;
+    padding-left: f.rem(40px);
+    z-index: map-get(v.$z-index, "flow-content");
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: f.rem(18px);
+  }
+
+  &__figure {
+
+    &--livemasq-app {
+      position: absolute;
+      right: f.rem(-70px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__picture {
+
+    &--icon {
+      min-width: f.rem(90px);
+      width: f.rem(120px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
+    }
+  }
+
+  &__image {
+
+    &--livemasq-app {
+      @include m.image-size(map-get(v.$livemasq-app-image-size, "default"));
+    }
+  }
+
+  @include m.respond-to("ipad") {
+    display: none;
+  }
+}

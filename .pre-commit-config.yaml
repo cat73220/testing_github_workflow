@@ -1,0 +1,44 @@
+---
+
+repos:
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.26.3
+    hooks:
+      - id: yamllint
+        files: \.(yaml|yml)$
+  - repo: https://github.com/awebdeveloper/pre-commit-stylelint
+    rev: 0.0.2
+    hooks:
+      - id: stylelint
+        additional_dependencies: ['stylelint']
+        files: \.(scss)$
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.28.1
+    hooks:
+      - id: markdownlint
+        entry: markdownlint
+        language: node
+        types: [markdown]
+        minimum_pre_commit_version: 0.15.0
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v7.32.0
+    hooks:
+      - id: eslint
+        additional_dependencies:
+          - eslint@7.32.0
+          - typescript@4.4.2
+        files: \.(ts)$
+        types: [file]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=2000']
+      - id: check-json
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: forbid-new-submodules
+      - id: no-commit-to-branch
+        args: [--branch, develop, --branch, main]
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace

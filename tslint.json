@@ -1,0 +1,38 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "cyclomatic-complexity": true,
+    "encoding": true,
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "linebreak-style": [
+      true,
+      "LF"
+    ],
+    "newline-before-return": true,
+    "no-default-export": true,
+    "no-irregular-whitespace": true,
+    "no-magic-numbers": true,
+    "no-non-null-assertion": true,
+    "no-null-keyword": true,
+    "no-require-imports": true,
+    "no-switch-case-fall-through": true,
+    "no-this-assignment": true,
+    "no-unnecessary-callback-wrapper": true,
+    "number-literal-format": true,
+    "prefer-conditional-expression": true,
+    "prefer-switch": true,
+    "strict": true,
+    "switch-default": true,
+    "triple-equals": true
+  },
+  "rulesDirectory": [],
+  "types": ["node"]
+}

@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+@use "abstracts/variables" as v;
+@use "abstracts/functions" as f;
+@use "abstracts/mixins" as m;
+
+@use "resets";
+@use "layout";
+@use "components";
+
+.body {
+  visibility: hidden;
+  opacity: 0;
+
+  &--loaded {
+    visibility: visible;
+    transition: opacity v.$body-opacity-transition-duration ease-out;
+    opacity: 1;
+  }
+}

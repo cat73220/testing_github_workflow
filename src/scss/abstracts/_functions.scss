@@ -1,0 +1,59 @@
+/*
+px-to-em($pixels, $font-size)
+
+Convert px to em
+
+$pixels           - pixels to convert
+$font-size = 16px - base font size
+*/
+@function em($pixels, $font-size: 16px) {
+  @return ($pixels / $font-size * 1em);
+}
+
+/*
+is-map($var)
+
+Check if a variable is a map
+*/
+@function is-map($var) {
+  @return type-of($var) == "map";
+}
+
+/*
+map-deep-get($map, $keys...)
+
+Map deep get
+
+$map - map
+$keys - keys to access a value
+*/
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+/*
+rem($pixels, $font-size)
+
+Convert px to rem
+
+$pixels           - pixels to convert
+$font-size = 16px - base font size
+*/
+@function rem($pixels, $font-size: 16px) {
+  @return ($pixels / $font-size * 1rem);
+}
+
+/*
+unitless($pixels, $font-size)
+
+Convert pixel to unitless
+
+$pixels           - pixels to convert
+$font-size = 16px - base font size
+*/
+@function unitless($pixels, $font-size: 16px) {
+  @return ($pixels / $font-size);
+}

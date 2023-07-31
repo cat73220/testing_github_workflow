@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head prefix="og: https://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2,viewport-fit=cover"/>
+    <meta name="description" content="LiveMasq(ライブマスク)は、iPhoneを用いた動画撮影時にリアルタイムで特定の人以外にモザイクを自動でかけるサービスです。"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="robots" content="<%= htmlWebpackPlugin.options.robotsDirectives %>"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-title" content="LiveMasq"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="LiveMasq"/>
+    <meta property="og:url" content="https://livemasq.com"/>
+    <meta property="og:description" content="LiveMasq(ライブマスク)は、iPhoneを用いた動画撮影時にリアルタイムで特定の人以外にモザイクを自動でかけるサービスです。"/>
+    <meta property="og:site_name" content="LiveMasq"/>
+    <meta property="og:locale" content="ja_JP"/>
+    <meta property="og:image" content="https://livemasq.com/ogp.png"/>
+    <meta property="og:image:alt" content="LiveMasq"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:type" content="image/png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://livemasq.com/ogp.png"/>
+    <meta name="twitter:image:alt" content="LiveMasq"/>
+    <meta name="twitter:title" content="LiveMasq"/>
+    <meta name="twitter:description" content="LiveMasq(ライブマスク)は、iPhoneを用いた動画撮影時にリアルタイムで特定の人以外にモザイクを自動でかけるサービスです。"/>
+    <meta name="twitter:app:name:iphone" content="LiveMasq"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png"/>
+    <link rel="mask-icon" sizes="any" href="/safari-pinned-tab-icon.svg" color="#f72d54"/>
+    <title>LiveMasq(ライブマスク) | リアルタイムにモザイクをかけることができるサービス</title>
+  </head>
+  <body class="body">
+    <header id="header" class="header" tabindex="0">
+      <section class="header__wrapper">
+        <a class="header__link header__link--logo" href="#headline">
+          <picture class="header__picture header__picture--logo">
+            <img
+              class="header__image header__image--logo"
+              src="/images/livemasq-logo.svg"
+              alt="LiveMasq"/>
+          </picture>
+          <picture
+            class="header__picture
+              header__picture--logo
+              header__picture--mobile">
+            <img
+              class="header__image
+                header__image--logo
+                header__image--mobile"
+              src="/images/livemasq-mobile-logo.svg"
+              alt="LiveMasq"/>
+          </picture>
+        </a>
+        <nav id="drop-down-menu" class="header__navigation" aria-label="メニュー">
+          <ul class="header__navigation-list" role="menubar" aria-label="メニュー">
+            <li
+              class="header__navigation-item header__navigation-item--how-to-use"
+              role="none">
+              <a
+                class="header__link
+                  header__link--navigation
+                  header__link--how-to-use"
+                href="#how-to-use"
+                role="menuitem">
+                使い方
+              </a>
+            </li>
+            <li
+              class="header__navigation-item header__navigation-item--faq"
+              role="none">
+              <a
+                class="header__link header__link--navigation header__link--faq"
+                href="#faq"
+                role="menuitem">
+                FAQ
+              </a>
+            </li>
+            <li
+              class="header__navigation-item header__navigation-item--flow"
+              role="none">
+              <a
+                class="header__link header__link--navigation header__link--flow"
+                href="#flow"
+                role="menuitem">
+                使用例
+              </a>
+            </li>
+            <li
+              class="header__navigation-item header__navigation-item--plan"
+              role="none">
+              <a
+                class="header__link header__link--navigation header__link--plan"
+                href="#plan"
+                role="menuitem">
+                料金表
+              </a>
+            </li>
+            <li
+              class="header__navigation-item header__navigation-item--news"
+              role="none">
+              <a
+                class="header__link header__link--navigation header__link--news"
+                href="#news"
+                role="menuitem">
+                お知らせ
+              </a>
+            </li>
+            <li
+              class="header__navigation-item header__navigation-item--install"
+              role="none">
+              <a
+                class="header__link header__link--navigation header__link--install"
+                href="#install"
+                role="menuitem">
+                使用方法
+              </a>
+            </li>
+            <li
+              class="header__navigation-item header__navigation-item--call-to-action"
+              role="none">
+              <a
+                class="header__link
+                  header__link--navigation
+                  header__link--call-to-acition"
+                href="#call-to-action"
+                role="menuitem">
+                お問い合わせ
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <a
+          class="header__button header__button--sign-in"
+          href="<%= htmlWebpackPlugin.options.clientUrl %>"
+        >
+          サインイン
+        </a>
+        <a
+          class="header__button header__button--start"
+          href="<%= htmlWebpackPlugin.options.clientUrl %>"
+        >
+          無料で始める
+        </a>
+        <button
+          id="drop-down-menu-button"
+          class="header__button header__button--drop-down-menu"
+          type="button"
+          aria-expanded="false">
+        </button>
+      </section>
+    </header>
+    <main class="main">
+      <%= require("html-loader!./_headline.ejs") %>
+      <%= require("html-loader!./_service.ejs") %>
+      <%= require("html-loader!./_how-to-use.ejs") %>
+      <%= require("html-loader!./_faq.ejs") %>
+      <%= require("html-loader!./_flow.ejs") %>
+      <%= require("html-loader!./_plan.ejs") %>
+      <%= require("html-loader!./_news.ejs") %>
+      <%= require("html-loader!./_call-to-action.ejs") %>
+      <%= require("html-loader!./_about-us.ejs") %>
+      <%= require("html-loader!./_access.ejs") %>
+    </main>
+    <%= require("html-loader!./_footer.ejs") %>
+
+    <% if (htmlWebpackPlugin.options.googleAnalytics) { %>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154158298-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-154158298-1');
+      </script>
+    <% } %>
+    <script>
+      document.getElementById("start-trial-button").href =
+        "<%= htmlWebpackPlugin.options.clientUrl %>"
+    </script>
+  </body>
+</html>

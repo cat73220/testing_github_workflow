@@ -1,0 +1,244 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.headline {
+  @include m.component-default();
+  position: relative;
+  padding-top: map-get(v.$headline-padding-top, "desktop");
+
+  @include m.respond-to("desktop-sxga") {
+    padding-top: map-get(v.$headline-padding-top, "mobile");
+  }
+
+  @include m.respond-to("ipad") {
+    padding-top: map-get(v.$headline-padding-top, "mobile");
+  }
+
+  &__wrapper {
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__panel {
+    margin: 0;
+
+    @include m.respond-to("ipad") {
+      flex-flow: column nowrap;
+      align-items: center;
+    }
+  }
+
+  &__pane {
+    overflow-x: hidden;
+    padding-top: f.rem(8px);
+
+    &--main {
+      align-items: flex-start;
+      max-width: f.rem(600px);
+      width: 100%;
+
+      @include m.respond-to("ipad") {
+        align-items: center;
+      }
+    }
+
+    &--side {
+
+      @include m.respond-to("ipad") {
+        margin-top: f.rem(40px);
+      }
+    }
+  }
+
+  &__heading {
+    @include m.scale-animation(0.9);
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    font-size: f.rem(36px);
+    text-align: left;
+    border-width: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    padding: f.rem(8px);
+    margin: f.rem(8px);
+
+    @include m.respond-to("ipad") {
+      margin-bottom: 0;
+      width: 90%;
+    }
+
+    @include m.respond-to("iphone-8-plus") {
+      margin-bottom: 0;
+      width: 100%;
+    }
+  }
+
+  &__description {
+    @include m.slide-animation();
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    margin-top: f.rem(16px);
+    padding: 0 f.rem(16px);
+
+    @include m.respond-to("ipad") {
+      width: 90%;
+    }
+
+    @include m.respond-to("iphone-8-plus") {
+      width: 100%;
+    }
+  }
+
+  &__button {
+
+    &--install {
+      @include
+        m.gradient-background-image(
+          map-get(v.$gradient-button-transition-color, "before")
+          , map-get(v.$gradient-button-transition-color, "after")
+        );
+      margin-top: f.rem(56px);
+      font-size: f.rem(24px);
+      padding: f.rem(8px) f.rem(64px);
+      width: fit-content;
+      width: -moz-max-content;
+
+      @include m.respond-to("ipad") {
+        margin-top: f.rem(24px);
+        padding: f.rem(8px) f.rem(56px);
+      }
+    }
+  }
+
+  &__link {
+
+    &--app-store-logo {
+      margin: f.rem(32px);
+
+      @include m.respond-to("ipad") {
+        margin-top: f.rem(32px);
+        justify-content: center;
+      }
+    }
+  }
+
+  &__picture {
+
+    &--background {
+      position: absolute;
+      z-index: map-get(v.$z-index, "background-image");
+      right: -2%;
+      bottom: 0;
+      width: 54%;
+      opacity: 0;
+
+      &.animate-in {
+        transition: opacity 3s ease-out, right 3s ease-out;
+        opacity: 1;
+        right: 0;
+      }
+
+      @include m.respond-to("desktop-fhd") {
+        width: 63%;
+      }
+
+      @include m.respond-to("desktop-sxga") {
+        width: 60%;
+        bottom: f.rem(60px);
+      }
+
+      @include m.respond-to("desktop-wsvga") {
+        width: 65%;
+      }
+
+      @include m.respond-to("desktop-svga") {
+        width: 70%;
+      }
+
+      @include m.respond-to("ipad") {
+        width: 100%;
+        bottom: f.rem(240px);
+      }
+    }
+  }
+
+  &__image {
+
+    &--background {
+      width: 100%;
+    }
+
+    &--app-preview {
+      @include m.image-size(map-get(v.$app-preview-image-size, "desktop"));
+      margin-left: f.rem(16px);
+
+      @include m.respond-to("ipad") {
+        @include m.image-size(map-get(v.$app-preview-image-size, "mobile"));
+        margin-left: 0;
+      }
+    }
+
+    &--app-store-logo {
+      min-width: map-get(v.$app-store-logo-size, "width");
+      min-height: map-get(v.$app-store-logo-size, "height");
+    }
+  }
+
+  &__word {
+
+    &:first-child {
+      margin-right: v.$headline-emphasis-offset;
+    }
+  }
+
+  &__emphasis {
+    @include
+      m.gradient-font-color(
+        v.$headline-emphasis-gradient-font-color
+        , v.$headline-emphasis-fallback-font-color
+      );
+
+    font-size: f.rem(47px);
+    margin-left: -(v.$headline-emphasis-offset);
+    margin-right: v.$headline-emphasis-offset;
+
+    @include m.respond-to("desktop-wsvga") {
+      display: block;
+    }
+  }
+
+  &__video-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__video {
+    position: absolute;
+    object-fit: cover;
+    height: 79%;
+    width: 80%;
+    top: 8%;
+    left: 12.5%;
+    z-index: map-get(v.$z-index, "app-preview-video");
+
+    @include m.respond-to("ipad") {
+      left: 10.5%;
+    }
+  }
+
+  &__release {
+    font-size: f.rem(24px);
+    font-weight: 600;
+    margin-top: f.rem(24px);
+    padding: 0 f.rem(16px) 0;
+
+    @include m.respond-to("iphone-8") {
+      font-size: f.rem(21px);
+      padding: 0;
+    }
+  }
+}

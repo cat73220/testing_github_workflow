@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2,viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="robots" content="<%= htmlWebpackPlugin.options.robotsDirectives %>"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-title" content="LiveMasq"/>
+    <meta name="error-code" content="<%= htmlWebpackPlugin.options.errorCode %>"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png"/>
+    <link rel="mask-icon" sizes="any" href="/safari-pinned-tab-icon.svg" color="#f72d54"/>
+    <title>LiveMasq(ライブマスク) | <%= htmlWebpackPlugin.options.errorTitle %></title>
+  </head>
+  <body class="body">
+    <header id="header" class="header" tabindex="0">
+      <section class="header__wrapper">
+        <a class="header__link header__link--logo" href="/">
+          <picture class="header__picture header__picture--logo">
+            <img
+              class="header__image header__image--logo"
+              src="/images/livemasq-logo.svg"
+              alt="LiveMasq"/>
+          </picture>
+          <picture
+            class="header__picture
+              header__picture--logo
+              header__picture--mobile">
+            <img
+              class="header__image
+                header__image--logo
+                header__image--mobile"
+              src="/images/livemasq-mobile-logo.svg"
+              alt="LiveMasq"/>
+          </picture>
+        </a>
+      </section>
+    </header>
+    <main class="main">
+      <section class="error">
+        <section class="error__wrapper">
+          <picture class="error__picture error__picture--logo">
+            <img
+              class="error__image error__image--logo"
+              src="/images/livemasq-logo.svg"
+              alt="LiveMasq"/>
+          </picture>
+          <h1
+            class="error__heading
+              error__heading--<%= htmlWebpackPlugin.options.errorCode %>">
+            <%= htmlWebpackPlugin.options.errorTitle %>
+          </h1>
+          <section
+            class="error__description
+              error__description--<%= htmlWebpackPlugin.options.errorCode %>">
+            <%= htmlWebpackPlugin.options.errorDescription %>
+          </section>
+          <section
+            class="error__helpful-message
+              error__helpful-message--<%= htmlWebpackPlugin.options.errorCode %>">
+            <%= htmlWebpackPlugin.options.helpfulMessage %>
+          </section>
+          <a
+            class="error__button error__button--go-back"
+            href="javascript:history.go(-1)">
+            前のページに戻る
+          </a>
+        </section>
+      </section>
+    </main>
+    <%= require("html-loader!./_footer.ejs") %>
+  </body>
+</html>

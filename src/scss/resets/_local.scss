@@ -1,0 +1,72 @@
+/* AIBS Reset CSS
+ * This module defines HTML elements’ styles.
+ */
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: v.$font-family;
+  font-size: v.$font-size;
+  color: v.$font-color;
+  line-height: v.$line-height;
+}
+
+a {
+  color: v.$link-font-color;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  border: none;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+input, textarea {
+  box-sizing: border-box;
+  border: none;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+select {
+  -moz-appearance:none; /* stylelint-disable-line */
+  -webkit-appearance: none; /* stylelint-disable-line */
+  appearance: none;
+  box-sizing: border-box;
+  border: none;
+}
+
+ruby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+}
+
+rb, rt {
+  font-weight: v.$ruby-font-weight;
+  text-align: v.$ruby-text-align;
+  line-height: v.$ruby-line-height;
+}

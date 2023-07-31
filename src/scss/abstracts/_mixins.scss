@@ -1,0 +1,607 @@
+@use "variables" as v;
+@use "functions" as f;
+
+/*
+backdrop()
+
+Applies backdrop’s style.
+*/
+@mixin backdrop() {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    background: v.$backdrop-color;
+    z-index: map-get(v.$z-index, "backdrop-color");
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+/*
+background-border-line(
+  $upward-border-line-top
+  , $upward-border-line-degree
+  , $downward-border-line-top
+  , $downward-border-line-degree
+)
+
+Applies background border line’s style.
+*/
+@mixin
+  background-border-lines(
+    $upward-border-line-top : 0%
+    , $upward-border-line-degree : 0deg
+    , $downward-border-line-top : 0%
+    , $downward-border-line-degree : 0deg ) {
+  position: relative;
+
+  &::before, &::after {
+    content: "";
+    width: 100vw;
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  &::before {
+    transform: skewY($upward-border-line-degree);
+    top: $upward-border-line-top;
+    z-index: map-get(v.$z-index, "background-border-line");
+    color: map-get(v.$background-border-color, "upward");
+  }
+
+  &::after {
+    transform: skewY($downward-border-line-degree);
+    top: $downward-border-line-top;
+    z-index: map-get(v.$z-index, "background-border-line");
+    color: map-get(v.$background-border-color, "downward");
+  }
+}
+
+/*
+background-image-animation($from, $to, $duration)
+
+Applies background image animation.
+*/
+@mixin background-image-animation($from, $to, $duration) {
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    z-index: map-get(v.$z-index, "background-image");
+    width: 100%;
+    height: 100%;
+  }
+
+  &::before {
+    background: $from;
+    opacity: 1;
+    animation: forward-opacity-animation $duration infinite alternate;
+
+    @keyframes forward-opacity-animation {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  }
+
+  &::after {
+    background: $to;
+    opacity: 0;
+    animation: backward-opacity-animation $duration infinite alternate;
+
+    @keyframes backward-opacity-animation {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/*
+background-square($size)
+
+Applies background square’s style.
+*/
+@mixin background-square($is-before: true, $size, $color, $degree, $top, $right, $bottom, $left) {
+  position: relative;
+
+  @if $is-before {
+    &::before {
+      @include square($size, $color, $degree, $top, $right, $bottom, $left);
+    }
+  }
+  @else {
+    &::after {
+      @include square($size, $color, $degree, $top, $right, $bottom, $left);
+    }
+  }
+}
+
+/*
+button-default()
+
+Applies button’s default style.
+*/
+@mixin button-default() {
+  &__button {
+    $root: &;
+    @include
+      pseudo-class(
+        v.$button-font-color
+        , v.$button-background-color
+        , v.$button-border-color
+      );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: f.rem(16px) f.rem(36px);
+    border-style: solid;
+    border-width: v.$button-border-width;
+    border-color: map-get(v.$button-border-color, "default");
+    border-radius: f.rem(45px);
+    background-color: map-get(v.$button-background-color, "default");
+    color: map-get(v.$button-font-color, "default");
+    width: fit-content;
+    width: -moz-max-content;
+    transition: v.$button-transition;
+
+    &.focus-visible {
+      box-shadow: v.$focus-box-shadow-color;
+    }
+  }
+}
+
+/*
+component-default()
+
+Applies component’s default style.
+*/
+@mixin component-default() {
+  $this: &;
+  @include button-default();
+  @include link-default();
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
+  padding: f.rem(70px) 0;
+  overflow: hidden;
+
+  &.focus-visible {
+
+    #{$this}__heading {
+      box-shadow: v.$focus-box-shadow-color;
+      border: none;
+    }
+  }
+
+  @include respond-to("ipad") {
+    padding: f.rem(40px) 0;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: f.rem(1080px);
+    padding: map-get(v.$component-padding-length, "default");
+    opacity: 0;
+    transition: opacity 600ms ease-out;
+    visibility: hidden;
+
+    &.animate-in {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @include respond-to("ipad") {
+      padding: map-get(v.$component-padding-length, "mobile");
+    }
+
+    @media (orientation: landscape) {
+      padding: map-get(v.$component-padding-length, "mobile") f.rem(80px);
+    }
+  }
+
+  &__heading {
+    font-size: f.rem(38px);
+    font-weight: 700;
+    text-align: center;
+    border-style: solid;
+    border-width: 0 0 1px;
+    border-color: v.$heading-border-color;
+  }
+
+  &__panel {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: f.rem(24px);
+    width: 100%;
+  }
+
+  &__pane {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__figure {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__figcaption {
+    font-size: f.rem(14px);
+  }
+
+  &__emphasis {
+    color: v.$emphasis-font-color;
+  }
+}
+
+/*
+gradient-font-color($gradient-color, $fallback-color)
+
+Applies gradient font color.
+*/
+@mixin gradient-font-color($gradient-color, $fallback-color) {
+  background-color: $fallback-color;
+  background-image: $gradient-color;
+  background-size: 100%;
+  background-repeat: repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*
+gradient-background-image(
+  $before-transition-gradient-color
+  , $after-transition-gradient-color
+)
+
+Applies gradient background image with transition.
+*/
+@mixin
+  gradient-background-image(
+    $before-transition-gradient-color
+    , $after-transition-gradient-color
+  ) {
+  @include
+    pseudo-class(none, v.$transparent-color-map, v.$transparent-color-map);
+  position: relative;
+  overflow: hidden;
+  z-index: map-get(v.$z-index, "gradient-button");
+
+  @include
+    background-image-animation(
+      $before-transition-gradient-color
+      , $after-transition-gradient-color
+      , 1.5s
+    );
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    z-index: map-get(v.$z-index, "gradient-button-pseudo-element");
+    border-radius: inherit;
+    transition: v.$gradient-button-transition;
+  }
+
+  &:focus, &:hover {
+    &::before {
+      animation-play-state: paused;
+    }
+
+    &::after {
+      animation-play-state: paused;
+    }
+  }
+}
+
+/*
+image-size($size)
+
+Applies image size.
+*/
+@mixin image-size($size-map) {
+  width: 100%;
+  max-width: map-get($size-map, "width");
+  height: 100%;
+  max-height: map-get($size-map, "height");
+}
+
+/*
+layout-default()
+
+Applies layout’s default style.
+*/
+@mixin layout-default() {
+  @include button-default();
+  @include link-default();
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
+
+  &__wrapper {
+    width: f.map-deep-get(v.$breakpoints, "ipad", "width");
+
+    @include respond-to("ipad") {
+      width: 92%;
+    }
+  }
+}
+
+/*
+link-default()
+
+Applies link’s default style.
+*/
+@mixin link-default() {
+
+  &__link {
+    transition: v.$link-transition;
+
+    &.focus-visible {
+      box-shadow: v.$focus-box-shadow-color;
+    }
+  }
+}
+
+/*
+pseudo-class($color-map)
+
+Applies pseudo-class style.
+*/
+@mixin
+  pseudo-class(
+    $font-color-map
+    , $background-color-map
+    , $border-color-map) {
+
+  @if f.is-map($font-color-map) {
+    &:link {
+      color: map-get($font-color-map, "link");
+
+      &::before, &::after {
+        color: map-get($font-color-map, "link");
+      }
+    }
+
+    &:visited {
+      color: map-get($font-color-map, "visited");
+
+      &::before, &::after {
+        color: map-get($font-color-map, "visited");
+      }
+    }
+
+    &:focus {
+      color: map-get($font-color-map, "focus");
+
+      &::before, &::after {
+        color: map-get($font-color-map, "focus");
+      }
+    }
+
+    &:hover {
+      color: map-get($font-color-map, "hover");
+
+      &::before, &::after {
+        color: map-get($font-color-map, "hover");
+      }
+    }
+
+    &:active {
+      color: map-get($font-color-map, "active");
+
+      &::before, &::after {
+        color: map-get($font-color-map, "active");
+      }
+    }
+  }
+
+  @if f.is-map($background-color-map) {
+    &:link {
+      background-color: map-get($background-color-map, "link");
+
+      &::before, &::after {
+        background-color: map-get($background-color-map, "link");
+      }
+    }
+
+    &:visited {
+      background-color: map-get($background-color-map, "visited");
+
+      &::before, &::after {
+        background-color: map-get($background-color-map, "visited");
+      }
+    }
+
+    &:focus {
+      background-color: map-get($background-color-map, "focus");
+
+      &::before, &::after {
+        background-color: map-get($background-color-map, "focus");
+      }
+    }
+
+    &:hover {
+      background-color: map-get($background-color-map, "hover");
+
+      &::before, &::after {
+        background-color: map-get($background-color-map, "hover");
+      }
+    }
+
+    &:active {
+      background-color: map-get($background-color-map, "active");
+
+      &::before, &::after {
+        background-color: map-get($background-color-map, "active");
+      }
+    }
+  }
+
+  @if f.is-map($border-color-map) {
+    &:link {
+      border-color: map-get($border-color-map, "link");
+
+      &::before, &::after {
+        border-color: map-get($border-color-map, "link");
+      }
+    }
+
+    &:visited {
+      border-color: map-get($border-color-map, "visited");
+
+      &::before, &::after {
+        border-color: map-get($border-color-map, "visited");
+      }
+    }
+
+    &:focus {
+      border-color: map-get($border-color-map, "focus");
+
+      &::before, &::after {
+        border-color: map-get($border-color-map, "focus");
+      }
+    }
+
+    &:hover {
+      border-color: map-get($border-color-map, "hover");
+
+      &::before, &::after {
+        border-color: map-get($border-color-map, "hover");
+      }
+    }
+
+    &:active {
+      border-color: map-get($border-color-map, "active");
+
+      &::before, &::after {
+        border-color: map-get($border-color-map, "active");
+      }
+    }
+  }
+}
+
+/*
+respond-to($breakpoint)
+
+Applies responsive breakpoints’ style.
+
+$breakpoint - breakpoint
+*/
+@mixin respond-to($breakpoint) {
+  @if map-has-key(v.$breakpoints, $breakpoint) {
+    @media (max-width: f.map-deep-get(v.$breakpoints, $breakpoint, "width")) {
+      @content;
+    }
+  }
+}
+
+/*
+scale-animation($initial-scale)
+
+Applies scale animation.
+*/
+@mixin scale-animation($initial-scale) {
+  transform: scale($initial-scale);
+  animation: scale 600ms ease-out 300ms 1 forwards;
+
+  @keyframes scale {
+    from {
+      transform: scale($initial-scale);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+/*
+slide-animation()
+
+Applies slide animation.
+*/
+@mixin slide-animation() {
+  $duration: 800ms;
+  $delay: 1.2s;
+  $bezier: cubic-bezier(0.04, 0.47, 0, 0.89);
+  transform: translateX(-100%);
+  opacity: 0;
+  animation: slide $duration $bezier $delay 1 forwards;
+
+  @keyframes slide {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/*
+square($size, $color, $degree, $top, $right, $bottom, $left)
+
+Applies square style.
+*/
+@mixin square($size, $color, $degree, $top, $right, $bottom, $left) {
+  position: absolute;
+  content: "";
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  width: $size;
+  height: $size;
+  background: $color;
+  z-index: map-get(v.$z-index, "background-square");
+  transform: rotate($degree);
+}
+
+/*
+typing-animation($width)
+
+Applies typing animation without cursor.
+*/
+@mixin typing-effect($width) {
+  animation: animated-text 1s ease-in-out;
+
+  @keyframes animated-text {
+    0% {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

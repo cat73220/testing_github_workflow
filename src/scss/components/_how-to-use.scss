@@ -1,0 +1,228 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.how-to-use {
+  $root: ".how-to-use";
+  @include m.component-default();
+
+  &__panel {
+    @include m.background-border-lines(40%, -40deg, 130%, 50deg);
+
+    @include m.respond-to("ipad") {
+      @include m.background-border-lines(15%, -40deg, 50%, 50deg);
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+  }
+
+  &__item {
+    display: flex;
+    flex-flow: row nowrap;
+    max-width: v.$how-to-use-item-width;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+
+    &:nth-child(even) {
+
+      #{$root}__pane--main {
+        order: 2;
+      }
+
+      #{$root}__pane--side {
+        order: 1;
+      }
+    }
+
+    &:nth-child(odd) {
+      align-self: flex-end;
+    }
+
+    @include m.respond-to("ipad") {
+      &:not(:first-child) {
+        margin-top: f.rem(40px);
+      }
+      flex-flow: column nowrap;
+      align-items: center;
+    }
+  }
+
+  &__pane {
+    $this: &;
+
+    &--main {
+      width: 100%;
+    }
+
+    &--step {
+      width: fit-content;
+      width: -moz-max-content;
+
+      &#{$this}--main {
+        align-items: flex-start;
+
+        @include m.respond-to("ipad") {
+          order: 2;
+          width: f.rem(280px);
+        }
+      }
+
+      &#{$this}--side {
+        position: relative;
+
+        @include m.respond-to("ipad") {
+          order: 1;
+        }
+      }
+    }
+  }
+
+  &__step {
+    @include
+      m.gradient-font-color(v.$how-to-use-step-gradient-font-color
+      , v.$how-to-use-step-fallback-font-color);
+    font-size: map-get(v.$how-to-use-step-font-size, "default");
+    font-weight: v.$how-to-use-step-font-weight;
+
+    @include m.respond-to("ipad") {
+      margin-top: f.rem(8px);
+      font-size: map-get(v.$how-to-use-step-font-size, "ipad");
+    }
+  }
+
+  &__title {
+    color: v.$how-to-use-title-font-color;
+    font-size: map-get(v.$how-to-use-title-font-size, "default");
+    font-weight: v.$how-to-use-title-font-weight;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0%;
+    opacity: 0;
+    transition: width 300ms ease-out, opacity 600ms ease-out;
+
+    &.animate-in {
+      width: 100%;
+      opacity: 1;
+    }
+
+    @include m.respond-to("ipad") {
+      font-size: map-get(v.$how-to-use-title-font-size, "ipad");
+    }
+  }
+
+  &__figure {
+
+    &--livemasq-app {
+      position: absolute;
+      width: fit-content;
+      width: -moz-max-content;
+      bottom: f.rem(32px);
+      left: f.rem(-88px);
+
+      @include m.respond-to("ipad") {
+        bottom: f.rem(-76px);
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  &__picture {
+    $this: &;
+
+    &--step {
+      &::before, &::after {
+        opacity: 0;
+        transition: opacity 2s ease-out;
+      }
+
+      &::after {
+        transition: opacity 4s ease-out;
+      }
+
+      &.animate-in {
+        &::before, &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    &--launch-app {
+      transition: transform ease-in-out 700ms;
+      @include
+        m.background-square(true
+        , f.rem(150px)
+        , map-get(v.$background-square-color, "dark")
+        , 45deg
+        , 20%
+        , 0
+        , auto
+        , auto
+      );
+      @include
+        m.background-square(false
+        , f.rem(200px)
+        , map-get(v.$background-square-color, "light")
+        , 45deg
+        , 30%
+        , 0
+        , auto
+        , auto
+      );
+    }
+
+    &--select-faces-to-exclude {
+      @include
+        m.background-square(true
+        , f.rem(200px)
+        , map-get(v.$background-square-color, "light")
+        , 30deg
+        , 20%
+        , auto
+        , auto
+        , f.rem(-10px)
+      );
+    }
+
+    &--start-shooting {
+      @include
+        m.background-square(true
+        , f.rem(200px)
+        , map-get(v.$background-square-color, "dark")
+        , 20deg
+        , 45%
+        , f.rem(-10px)
+        , auto
+        , auto
+      );
+    }
+  }
+
+  &__image {
+
+    &--livemasq-app {
+      @include m.image-size(map-get(v.$livemasq-app-image-size, "default"));
+
+      @include m.respond-to("ipad") {
+        @include m.image-size(map-get(v.$livemasq-app-image-size, "ipad"));
+      }
+    }
+
+    &--launch-app {
+      @include m.image-size(v.$launch-app-image-size);
+    }
+
+    &--select-faces-to-exclude {
+      @include m.image-size(v.$select-faces-to-exclude-image-size);
+    }
+
+    &--start-shooting {
+      @include m.image-size(v.$start-shooting-image-size);
+    }
+  }
+}

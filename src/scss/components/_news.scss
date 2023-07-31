@@ -1,0 +1,50 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.news {
+  @include m.component-default();
+
+  &__list {
+    border-color: map-get(v.$news-border-color, "outline");
+    border-style: solid;
+    border-width: v.$border-width 0;
+    width: 100%;
+    max-width: v.$news-list-width;
+  }
+
+  &__item {
+    display: flex;
+    flex-flow: row nowrap;
+    border-color: map-get(v.$news-border-color, "default");
+    border-style: solid;
+    border-width: 0 0 v.$border-width;
+    padding: f.rem(16px) 0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    @include m.respond-to("ipad") {
+      flex-flow: row wrap;
+    }
+  }
+
+  &__date {
+    white-space: nowrap;
+
+    @include m.respond-to("ipad") {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    margin-left: f.rem(40px);
+    font-weight: 700;
+
+    @include m.respond-to("ipad") {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+}

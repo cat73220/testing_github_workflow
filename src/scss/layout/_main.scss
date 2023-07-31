@@ -1,0 +1,7 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.main {
+  @include m.layout-default();
+}

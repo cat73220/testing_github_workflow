@@ -1,0 +1,239 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.footer {
+  @include m.layout-default();
+
+  background-color: v.$footer-background-color;
+  color: v.$footer-font-color;
+
+  &__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    &--main {
+      @media (orientation: landscape) {
+        padding: f.rem(4px)  f.rem(40px);
+      }
+    }
+
+    &--site {
+      margin-top: f.rem(24px);
+      padding: f.rem(24px) f.rem(16px);
+      background-color: v.$footer-site-background-color;
+      width: 100%;
+
+      @media (orientation: landscape) {
+        padding: f.rem(24px)  f.rem(40px);
+      }
+    }
+  }
+
+  &__heading {
+
+    &--site {
+      font-size: f.rem(20px);
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-flow: row nowrap;
+
+    &--contact {
+      width: 100%;
+      justify-content: center;
+      margin-top: f.rem(64px);
+
+      @include m.respond-to("desktop-wsvga") {
+        margin-top: f.rem(32px);
+      }
+
+      @include m.respond-to("ipad") {
+        flex-direction: column;
+        align-items: center;
+        margin-top: f.rem(24px);
+      }
+    }
+
+    &--service {
+      flex-flow: column wrap;
+      height: f.rem(360px);
+      width: 100%;
+      max-width: f.map-deep-get(v.$breakpoints, "desktop-sxga", "width");
+      margin-top: f.rem(16px);
+
+      @include m.respond-to("desktop-sxga") {
+        max-width: none;
+        height: f.rem(700px);
+      }
+
+      @include m.respond-to("ipad") {
+        height: auto;
+      }
+    }
+
+    &--section {
+      flex-direction: column;
+    }
+
+    &--site {
+      flex-direction: column;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-flow: row nowrap;
+
+    &--contact {
+      margin: f.rem(16px);
+      max-width: f.rem(530px);
+      width: calc(100% - (16px * 2));
+      height: f.rem(63px);
+
+      @include m.respond-to("ipad") {
+        margin: f.rem(8px);
+        width: calc(100% - (8px * 2));
+      }
+    }
+
+    &--service {
+      width: calc(25% - (8px * 2));
+      flex-direction: column;
+      border-width: 1px 0 0;
+      border-style: solid;
+      border-color: v.$footer-service-border-color;
+      padding-top: f.rem(8px);
+      margin: f.rem(8px) f.rem(8px) 0;
+
+      @include m.respond-to("desktop-sxga") {
+        max-width: none;
+        width: calc(50% - (8px * 2));
+      }
+
+      @include m.respond-to("ipad") {
+        width: 100%;
+        margin: f.rem(8px) 0 0;
+      }
+    }
+
+    &--section {
+      flex-direction: column;
+    }
+  }
+
+  &__button {
+    $this: &;
+
+    &--scroll-to-top {
+      @include
+        m.gradient-background-image(
+          map-get(v.$gradient-button-transition-color, "before")
+          , map-get(v.$gradient-button-transition-color, "after")
+        );
+      position: fixed;
+      right: f.rem(20px);
+      bottom: 0;
+      padding: 0;
+      width: v.$scroll-to-top-button-size;
+      height: v.$scroll-to-top-button-size;
+      border-radius: 100%;
+      border: 1px;
+      transition: v.$scroll-to-top-button-transition;
+      font-size: f.rem(22px);
+      z-index: map-get(v.$z-index, "scroll-to-top-button");
+
+      &#{$this}--animated-in {
+        transform: translateY(-(v.$scroll-to-top-button-offset));
+      }
+
+      &#{$this}--animated-out {
+        transform: translateY(v.$scroll-to-top-button-offset);
+      }
+
+      @include m.respond-to("ipad") {
+        right: f.rem(20px);
+      }
+    }
+  }
+
+  &__link {
+    @include m.pseudo-class(v.$footer-link-font-color, null null, null);
+    color: map-get(v.$footer-link-font-color, "default");
+
+    &--contact {
+      @include
+        m.pseudo-class(v.$footer-contact-link-font-color
+        , v.$footer-contact-link-background-color
+        , null
+      );
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+      color: map-get(v.$footer-contact-link-font-color, "default");
+      background: map-get(v.$footer-contact-link-background-color, "default");
+    }
+
+    &--site {
+      font-size: f.rem(14px);
+      width: 100%;
+      font-weight: 400;
+    }
+  }
+
+  &__title {
+
+    &--section {
+      font-size: f.rem(14px);
+      color: v.$footer-section-title-font-color;
+      margin-top: f.rem(8px);
+    }
+  }
+
+  &__lead {
+
+    &--site {
+      display: flex;
+      flex-flow: row wrap;
+      font-size: f.rem(18px);
+      color: v.$footer-site-lead-color;
+
+      @include m.respond-to("ipad") {
+        justify-content: center;
+        font-size: f.rem(14px);
+      }
+    }
+  }
+
+  &__picture {
+
+    &--aucnet-ibs-long-logo {
+      margin-top: f.rem(32px);
+
+      @include m.respond-to("ipad") {
+        margin-top: f.rem(16px);
+      }
+    }
+  }
+
+  &__copyright {
+    margin-top: f.rem(8px);
+  }
+
+  &__image {
+
+    &--aucnet-ibs-long-logo {
+      width: 100%;
+      max-width: f.rem(420px);
+    }
+  }
+}

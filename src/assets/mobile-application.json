@@ -1,0 +1,19 @@
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "applicationCategory": "UtilitiesApplication",
+  "author": {
+    "@type": "Organization",
+    "url": "https://aucnet-ibs.com",
+    "name": "オークネット・アイビーエス"
+  },
+  "description": "LiveMasq(ライブマスク)は、iPhoneを用いた動画撮影時にリアルタイムで特定の人以外にモザイクを自動でかけるサービスです。",
+  "image": "https://livemasq.com/apple-touch-icon-180x180.png",
+  "installUrl": "https://apps.apple.com/app/id1542155530",
+  "name": "LiveMasq",
+  "offers": {
+    "@type": "Offer",
+    "price": "0"
+  },
+  "operatingSystem": "iOS"
+}

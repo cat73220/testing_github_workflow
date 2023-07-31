@@ -1,0 +1,83 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.faq {
+  @include m.component-default();
+
+  &__list {
+    width: 100%;
+  }
+
+  &__item {
+    border-color: v.$border-color;
+    border-style: solid;
+    border-width: v.$border-width 0 0;
+
+    &:last-child {
+      border-bottom-width: v.$border-width;
+    }
+  }
+
+  &__question {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-weight: v.$question-font-weight;
+    font-size: v.$question-font-size;
+    height: 100%;
+    padding: f.rem(16px) 0;
+
+    @include m.respond-to("ipad") {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+    }
+  }
+
+  &__title {
+    white-space: nowrap;
+  }
+
+  &__description {
+    margin-left: f.rem(8px);
+
+    @include m.respond-to("ipad") {
+      margin-left: 0;
+    }
+  }
+
+  &__button {
+    margin-left: auto;
+  }
+
+  &__answer {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: v.$answer-font-size;
+    padding: f.rem(28px);
+    background: v.$answer-background-color;
+    margin-bottom: f.rem(28px);
+
+    @include m.respond-to("ipad") {
+      padding: f.rem(16px) f.rem(8px);
+      margin-bottom: 0;
+    }
+  }
+
+  &__line {
+    display: flex;
+    flex-flow: row wrap;
+
+    &:not(:last-child) {
+      margin-bottom: f.rem(8px);
+    }
+  }
+
+  &__link {
+    @include m.pseudo-class(v.$faq-link-font-color, null, null);
+    color: map-get(v.$faq-link-font-color, "default");
+    font-weight: 400;
+    display: contents;
+  }
+}

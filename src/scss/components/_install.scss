@@ -1,0 +1,115 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.install {
+  @include m.component-default();
+
+  &__panel {
+
+    @include m.respond-to("ipad") {
+      flex-flow: row wrap;
+    }
+  }
+
+  &__pane {
+    display: flex;
+
+    &--main {
+      flex-flow: column nowrap;
+
+      @include m.respond-to("ipad") {
+        order: 2;
+        max-width: f.rem(320px);
+        width: 100%;
+        align-items: flex-start;
+      }
+    }
+
+    &--side {
+      flex-flow: row nowrap;
+
+      @include m.respond-to("ipad") {
+        order: 1;
+        flex-flow: column nowrap;
+      }
+    }
+  }
+
+  &__title {
+    font-size: v.$test-flight-title-font-size;
+    font-weight: 700;
+  }
+
+  &__list {
+    margin-top: f.rem(8px);
+    margin-left: v.$test-flight-title-font-size;
+  }
+
+  &__item {
+    font-size: f.rem(18px);
+    list-style-type: decimal;
+  }
+
+  &__picture {
+
+    &--test-flight-app {
+      align-self: flex-end;
+      margin-bottom: f.rem(40px);
+
+      @include m.respond-to("ipad") {
+        order: 2;
+        align-self: center;
+        margin-top: f.rem(24px);
+        margin-bottom: f.rem(36px);
+      }
+    }
+
+    &--test-flight-app-preview {
+      margin-left: f.rem(40px);
+
+      @include
+        m.background-square(true
+        , f.rem(100px)
+        , map-get(v.$background-square-color, "dark")
+        , 45deg
+        , 30%
+        , f.rem(-10px)
+        , auto
+        , auto
+      );
+      @include
+        m.background-square(false
+        , f.rem(100px)
+        , map-get(v.$background-square-color, "light")
+        , 45deg
+        , 45%
+        , f.rem(-10px)
+        , auto
+        , auto
+      );
+
+      @include m.respond-to("ipad") {
+        margin-left: 0;
+        order: 1;
+      }
+    }
+  }
+
+  &__image {
+
+    &--test-flight-app {
+      @include m.image-size(v.$test-flight-app-image-size);
+    }
+
+    &--test-flight-app-preview {
+      @include m.image-size(v.$test-flight-app-preview-image-size);
+    }
+  }
+
+  &__link {
+    @include m.pseudo-class(v.$install-link-font-color, null, null);
+    color: map-get(v.$install-link-font-color, "default");
+    font-weight: 400;
+  }
+}

@@ -1,0 +1,77 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.call-to-action {
+  @include m.component-default();
+  background-color: v.$call-to-action-background-color;
+
+  &.focus-visible {
+    box-shadow: v.$focus-box-shadow-color;
+
+    &__heading {
+      box-shadow: none;
+    }
+  }
+
+  &__button {
+
+    &--inquiry {
+      @include
+        m.gradient-background-image(
+          map-get(v.$gradient-button-transition-color, "before")
+          , map-get(v.$gradient-button-transition-color, "after")
+        );
+      font-size: f.rem(23px);
+      font-weight: 900;
+      padding: f.rem(16px) f.rem(80px);
+
+      @include m.respond-to("ipad") {
+        font-size: f.rem(16px);
+        padding: f.rem(12px) f.rem(96px);
+      }
+    }
+  }
+
+  &__tel {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-top: f.rem(24px);
+    font-weight: 700;
+    height: fit-content;
+    height: -moz-max-content;
+
+    @include m.respond-to("ipad") {
+      margin-top: f.rem(16px);
+    }
+  }
+
+  &__lead {
+
+    @include m.respond-to("ipad") {
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  &__link {
+
+    &--tel-number {
+      @include m.pseudo-class(v.$call-to-action-link-font-color, null, null);
+      font-size: f.rem(36px);
+      margin: 0 f.rem(24px);
+      white-space: nowrap;
+
+      &.animate-in {
+        transition: color 2s ease-out;
+        color: map-get(v.$call-to-action-link-font-color, "active");
+      }
+
+      @include m.respond-to("ipad") {
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+}

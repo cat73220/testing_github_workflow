@@ -1,0 +1,95 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/functions" as f;
+@use "../abstracts/mixins" as m;
+
+.error {
+  @include m.component-default();
+  padding-top: map-get(v.$headline-padding-top, "desktop");
+  background-color: v.$error-background-color;
+  color: v.$error-font-color;
+
+  @include m.respond-to("desktop-sxga") {
+    padding-top: map-get(v.$headline-padding-top, "mobile");
+  }
+
+  @include m.respond-to("ipad") {
+    padding-top: map-get(v.$headline-padding-top, "mobile");
+  }
+
+  &.focus-visible {
+    box-shadow: v.$focus-box-shadow-color;
+
+    &__heading {
+      box-shadow: none;
+    }
+  }
+
+  &__picture {
+
+    &--logo {
+      width: 100%;
+      max-width: f.rem(496px);
+      margin-top: 15%;
+
+      @include m.respond-to("ipad") {
+        width: 90%;
+        max-width: f.rem(320px);
+      }
+    }
+  }
+
+  &__heading {
+    display: flex;
+    flex-flow: row wrap;
+    border: none;
+    font-size: f.rem(40px);
+    margin-top: 10%;
+
+    @include m.respond-to("ipad") {
+      font-size: f.rem(30px);
+    }
+
+    &--405, &--414, &--416, &--500, &--503 {
+      @include m.respond-to("ipad") {
+        font-size: f.rem(22px);
+      }
+    }
+  }
+
+  &__description {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    font-size: f.rem(20px);
+    width: 100%;
+    max-width: f.rem(600px);
+    margin-top: f.rem(24px);
+
+    @include m.respond-to("ipad") {
+      margin-top: f.rem(16px);
+      max-width: f.rem(496px);
+      font-size: f.rem(18px);
+    }
+  }
+
+  &__helpful-message {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    font-size: f.rem(16px);
+    max-width: f.rem(480px);
+    width: 100%;
+    margin-top: f.rem(8px);
+
+    @include m.respond-to("ipad") {
+      max-width: f.rem(320px);
+    }
+  }
+
+  &__button {
+
+    &--go-back {
+      margin-top: f.rem(56px);
+    }
+  }
+}
