@@ -28,6 +28,10 @@ jobs:
           LINTER_RULES_PATH: ./
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_ANSIBLE: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_JSCPD: false
+          VALIDATE_TYPESCRIPT_STANDARD: false
+          LOG_LEVEL: TRACE
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # lint-others:
   #   runs-on: ubuntu-latest
