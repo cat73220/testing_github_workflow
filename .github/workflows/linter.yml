@@ -28,9 +28,9 @@ jobs:
           LINTER_RULES_PATH: ./
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_ANSIBLE: false
-          VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_JAVASCRIPT_STANDARD: true
           VALIDATE_JSCPD: false
-          VALIDATE_TYPESCRIPT_STANDARD: false
+          VALIDATE_TYPESCRIPT_STANDARD: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # lint-others:
   #   runs-on: ubuntu-latest
