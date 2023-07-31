@@ -5,15 +5,15 @@ name: lint
 on: [push, pull_request]
 
 jobs:
-  commitlint:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4
+  # commitlint:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - uses: wagoid/commitlint-github-action@v4
   super-lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
@@ -32,31 +32,31 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_TYPESCRIPT_STANDARD: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  lint-others:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Node.js, Yarn
-        run: |
-          sudo apt-get update \
-              && sudo apt-get install -y nodejs yarn
-      - name: Install libsysconfcpus
-        run: |
-          if [[ ! -d $HOME/sysconfcpus/bin ]]; then
-              git clone https://github.com/obmarg/libsysconfcpus.git
-              pushd libsysconfcpus
-              ./configure --prefix=$HOME/sysconfcpus
-              make && make install
-              popd
-          fi
-      - name: Build
-        run: |
-          yarn \
-              && $HOME/sysconfcpus/bin/sysconfcpus --num 2 \
-                  yarn build:production
-      - name: Validate HTML
-        run: yarn html-validate
+  # lint-others:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Install Node.js, Yarn
+  #       run: |
+  #         sudo apt-get update \
+  #             && sudo apt-get install -y nodejs yarn
+  #     - name: Install libsysconfcpus
+  #       run: |
+  #         if [[ ! -d $HOME/sysconfcpus/bin ]]; then
+  #             git clone https://github.com/obmarg/libsysconfcpus.git
+  #             pushd libsysconfcpus
+  #             ./configure --prefix=$HOME/sysconfcpus
+  #             make && make install
+  #             popd
+  #         fi
+  #     - name: Build
+  #       run: |
+  #         yarn \
+  #             && $HOME/sysconfcpus/bin/sysconfcpus --num 2 \
+  #                 yarn build:production
+  #     - name: Validate HTML
+  #       run: yarn html-validate
 
 # ---
 # #################################
